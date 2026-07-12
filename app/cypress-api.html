@@ -45,7 +45,7 @@
               <li><a href="/commands/waiting">Waiting</a></li>
               <li><a href="/commands/network-requests">Network Requests</a></li>
               <li><a href="/commands/files">Files</a></li>
-              <li><a href="/commands/local-storage">Local Storage</a></li>
+              <li><a href="/commands/storage">Storage</a></li>
               <li><a href="/commands/cookies">Cookies</a></li>
               <li><a href="/commands/spies-stubs-clocks">Spies, Stubs &amp; Clocks</a></li>
             </ul>
@@ -99,29 +99,6 @@ cy.setCookie('fakeCookie', '123ABC')
 cy.clearCookie('fakeCookie')
 cy.setCookie('fakeCookie', '123ABC')
 </code></pre>
-        </div>
-
-        <div class="col-xs-12"><hr></div>
-
-        <div class="col-xs-12">
-          <h4 id="Cookies.preserveOnce"><a href="https://on.cypress.io/cookies">Cypress.Cookies.preserveOnce()</a></h4>
-          <p>To preserve cookies by its key, use <a href="https://on.cypress.io/cookies"><code>Cypress.Cookies.preserveOnce()</code></a>.</p>
-          <pre><code class="javascript">cy.getCookie('fakeCookie').should('not.be.ok')
-
-// preserving a cookie will not clear it when
-// the next test starts
-cy.setCookie('lastCookie', '789XYZ')
-Cypress.Cookies.preserveOnce('lastCookie')</code></pre>
-        </div>
-
-        <div class="col-xs-12"><hr></div>
-
-        <div class="col-xs-12">
-          <h4 id="Cookies.default"><a href="https://on.cypress.io/cookies">Cypress.Cookies.default()</a></h4>
-          <p>To set defaults for all cookies, use <a href="https://on.cypress.io/cookies"><code>Cypress.Cookies.default()</code></a>.</p>
-          <pre><code class="javascript">Cypress.Cookies.defaults({
-  preserve: 'session_id'
-})</code></pre>
         </div>
 
         <div class="col-xs-12"><hr></div>
@@ -183,24 +160,24 @@ expect(Cypress.dom.isHidden(visibleP)).to.be.false</code></pre>
         <div class="col-xs-12"><hr></div>
 
         <div class="col-xs-12">
-          <h4 id="env"><a href="https://on.cypress.io/env">Cypress.env()</a></h4>
-          <p>To get or set environment variable, use <a href="https://on.cypress.io/env"><code>Cypress.env()</code></a>.</p>
+          <h4 id="env"><a href="https://on.cypress.io/env">Cypress.expose()</a></h4>
+          <p>To get or set public configuration in your tests, use <a href="https://on.cypress.io/env"><code>Cypress.expose()</code></a>.</p>
           <pre><code class="javascript">// set multiple environment variables
-Cypress.env({
+Cypress.expose({
   host: 'veronica.dev.local',
   api_server: 'http://localhost:8888/v1/',
 })
 
 // get environment variable
-expect(Cypress.env('host')).to.eq('veronica.dev.local')
+expect(Cypress.expose('host')).to.eq('veronica.dev.local')
 
 // set environment variable
-Cypress.env('api_server', 'http://localhost:8888/v2/')
-expect(Cypress.env('api_server')).to.eq('http://localhost:8888/v2/')
+Cypress.expose('api_server', 'http://localhost:8888/v2/')
+expect(Cypress.expose('api_server')).to.eq('http://localhost:8888/v2/')
 
 // get all environment variable
-expect(Cypress.env()).to.have.property('host', 'veronica.dev.local')
-expect(Cypress.env()).to.have.property('api_server', 'http://localhost:8888/v2/')</code></pre>
+expect(Cypress.expose()).to.have.property('host', 'veronica.dev.local')
+expect(Cypress.expose()).to.have.property('api_server', 'http://localhost:8888/v2/')</code></pre>
         </div>
 
         <div class="col-xs-12"><hr></div>
