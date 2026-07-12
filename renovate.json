@@ -1,42 +1,42 @@
 {
+  "configMigration": true,
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "automerge": true,
-  "commitMessage": "{{semanticPrefix}}Update {{depName}} to {{newVersion}} 🌟",
-  "prTitle": "{{semanticPrefix}}{{#if isPin}}Pin{{else}}Update{{/if}} dependency {{depName}} to version {{newVersion}} 🌟",
   "major": {
-    "automerge": false
-  },
-  "minor": {
     "automerge": false
   },
   "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
-  "schedule": [
-    "after 2am and before 3am on saturday"
-  ],
-  "updateNotScheduled": false,
-  "timezone": "America/New_York",
+  "minimumReleaseAge": "7 days",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": "0 days"
+  },
   "lockFileMaintenance": {
     "enabled": true
   },
-  "separatePatchReleases": true,
+  "separateMinorPatch": true,
   "separateMultipleMajor": true,
-  "masterIssue": true,
   "labels": [
     "type: dependencies",
     "renovate"
   ],
   "packageRules": [
     {
-      "packageNames": ["cypress"],
-      "groupName": "cypress",
-      "schedule": "before 2am"
+      "matchPackageNames": ["/eslint/", "globals"],
+      "groupName": "eslint"
     },
     {
-      "packagePatterns": "^eslint",
-      "groupName": "eslint"
+      "matchDatasources": ["docker"],
+      "groupName": "cypress-docker-images",
+      "matchPackageNames": ["cypress/base", "cypress/browsers"],
+      "allowedVersions": "<25"
+    },
+    {
+      "matchPackageNames": ["cypress"],
+      "minimumReleaseAge": "0 days"
     }
   ]
 }

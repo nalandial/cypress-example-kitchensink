@@ -28,7 +28,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active" class="dropdown">
+          <li class="active dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Commands <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/commands/querying">Querying</a></li>
@@ -45,7 +45,7 @@
               <li><a href="/commands/waiting">Waiting</a></li>
               <li><a href="/commands/network-requests">Network Requests</a></li>
               <li><a href="/commands/files">Files</a></li>
-              <li><a href="/commands/local-storage">Local Storage</a></li>
+              <li><a href="/commands/storage">Storage</a></li>
               <li><a href="/commands/cookies">Cookies</a></li>
               <li><a href="/commands/spies-stubs-clocks">Spies, Stubs &amp; Clocks</a></li>
             </ul>
@@ -70,7 +70,6 @@
   <div class="container content-container">
     <div id="misc">
       <div class="row">
-
         <div class="col-xs-7">
           <h4 id="end"><a href="https://on.cypress.io/end">.end()</a></h4>
           <p>To end the command chain, use the <a href="https://on.cypress.io/end"><code>.end()</code></a> command.</p>
@@ -108,7 +107,6 @@ cy.get('.misc-table').within(() => {
         </div>
 
         <div class="col-xs-12"><hr></div>
-
         <div class="col-xs-12">
           <h4 id="exec"><a href="https://on.cypress.io/exec">cy.exec()</a></h4>
           <p>To execute a system command, use the <a href="https://on.cypress.io/exec"><code>cy.exec()</code></a> command.</p>
@@ -123,14 +121,16 @@ cy.exec('echo Jane Lane')
 cy.log(`Platform ${Cypress.platform} architecture ${Cypress.arch}`)
 
 if (Cypress.platform === 'win32') {
-  cy.exec('print cypress.json')
+  cy.exec('print cypress.config.js')
     .its('stderr').should('be.empty')
-} else {
-  cy.exec('cat cypress.json')
+}
+else {
+  cy.exec('cat cypress.config.js')
     .its('stderr').should('be.empty')
 
   cy.exec('pwd')
-    .its('code').should('eq', 0)
+    // for Cypress 14 and below, use 'code' instead of 'exitCode'
+    .its('exitCode').should('eq', 0)
 }</code></pre>
         </div>
 
@@ -162,18 +162,18 @@ cy.focused().should('have.id', 'description')</code></pre>
 
         <div class="col-xs-12"><hr></div>
 
-              <div class="col-xs-7">
-                <h4 id="screenshot"><a href="https://on.cypress.io/screenshot">cy.screenshot()</a></h4>
-                <p>To take a screenshot, use the <a href="https://on.cypress.io/screenshot"><code>cy.screenshot()</code></a> command.</p>
+        <div class="col-xs-7">
+          <h4 id="screenshot"><a href="https://on.cypress.io/screenshot">cy.screenshot()</a></h4>
+          <p>To take a screenshot, use the <a href="https://on.cypress.io/screenshot"><code>cy.screenshot()</code></a> command.</p>
                 <pre><code class="javascript">cy.screenshot('my-image')</code></pre>
-            </div>
-              <div class="col-xs-5">
-                <div class="well">
-                  <code>cypress/screenshots/my-image.png</code>
-                </div>
-              </div>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <code>cypress/screenshots/my-image.png</code>
+          </div>
+        </div>
 
-              <div class="col-xs-12"><hr></div>
+        <div class="col-xs-12"><hr></div>
 
         <div class="col-xs-7">
           <h4 id="wrap"><a href="https://on.cypress.io/wrap">cy.wrap()</a></h4>
@@ -181,7 +181,7 @@ cy.focused().should('have.id', 'description')</code></pre>
           <pre><code class="javascript">cy.wrap({foo: 'bar'})
   .should('have.property', 'foo')
   .and('include', 'bar')</code></pre>
-      </div>
+        </div>
         <div class="col-xs-5">
           <div class="well">
             <code>{foo: bar}</code>
